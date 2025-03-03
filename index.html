@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Minha Loja - Cama, Mesa e Banho</title>
+    <style>
+        /* ===== CSS Reset ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            /* ===== Cores Tema Claro ===== */
+            --background-color-light: #f9f9f9;
+            --text-color-light: #333;
+            --header-color-light: #fff;
+            --sidebar-color-light: #eee;
+            --card-color-light: #fff;
+            --button-color-light: #f0f0f0;
+--button-color-light2: #c8c8c8;
+            --button-text-color-light: #333;
+            --accent-color-light: #007bff;
+            --footer-color-light: #ddd;
+            --popup-overlay-color-light: rgba(0, 0, 0, 0.5);
+            --popup-background-color-light: #fff;
+            --popup-text-color-light: #333;
+            --whatsapp-button-color-light: #25d366;
+            --cart-popup-color-light: #fff;
+            --confirm-button-color-light: #28a745;
+            --cancel-button-color-light: #dc3545;
+            --button-border-light: #ccc;
+            --product-card-button-color-light: #007bff;
+            --product-card-button-text-color-light: #fff;
+            --product-card-price-color-light: #28a745;
+
+            /* ===== Cores Tema Escuro ===== */
+            --background-color-dark: #121212;
+            --text-color-dark: #eee;
+            --header-color-dark: #1e1e1e;
+            --sidebar-color-dark: #252525;
+            --card-color-dark: #333;
+            --button-color-dark: #444;
+            --button-text-color-dark: #eee;
+            --accent-color-dark: #66aaff;
+            --footer-color-dark: #333;
+            --popup-overlay-color-dark: rgba(0, 0, 0, 0.7);
+            --popup-background-color-dark: #444;
+            --popup-text-color-dark: #eee;
+            --whatsapp-button-color-dark: #128c7e;
+            --cart-popup-color-dark: #333;
+            --confirm-button-color-dark: #4CAF50;
+            --cancel-button-color-dark: #f44336;
+            --button-border-dark: #555;
+            --button-cancel-dark: #800000;
+            --button-border-cancel-dark: #666;
+            --product-card-button-color-dark: #66aaff;
+            --product-card-button-text-color-dark: #121212;
+            --product-card-price-color-dark: #66bb6a;
+
+            /* ===== Geral ===== */
+            --font-family: 'Arial', sans-serif;
+            --transition-duration: 0.3s;
+        }
+
+        body {
+            font-family: var(--font-family);
+            transition:
+                background-color var(--transition-duration),
+                color var(--transition-duration);
+        }
+
+        /* ===== Tema Claro (Padrão) ===== */
+        body.light-theme {
+            background-color: var(--background-color-light);
+            color: var(--text-color-light);
+        }
+
+        body.light-theme header,
+        body.light-theme #sidebar,
+        body.light-theme .popup-cart,
+        body.light-theme .popup,
+        body.light-theme .doubt-popup,
+        body.light-theme #customerNamePopup {
+            background-color: var(--header-color-light);
+        }
+
+        body.light-theme aside#sidebar {
+            background-color: var(--sidebar-color-light);
+        }
+
+        body.light-theme .product-card,
+        body.light-theme .popup .popup-content,
+        body.light-theme .doubt-popup .doubt-popup-content,
+        body.light-theme .popup-cart .cart-items,
+        body.light-theme .popup-cart .cart-header,
+        body.light-theme .popup-cart .cart-footer,
+        body.light-theme #customerNamePopup .popup-content {
+            background-color: var(--card-color-light);
+            border-radius: 10px; /* Arredonda os cantos dos cards e popups no tema claro */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.1); /* Contorno de sombra claro */
+        }
+
+        body.light-theme button,
+        body.light-theme .whatsapp-button,
+        body.light-theme .clear-cart-button,
+        body.light-theme #customerNamePopup .popup-content button {
+            background-color: var(--button-color-light);
+            color: var(--button-text-color-light);
+            border-color: var(--button-border-light);
+        }
+        body.light-theme #customerNamePopup .popup-content button:last-child {
+            background-color: var(--cancel-button-color-light);
+        }
+
+        body.light-theme footer {
+            background-color: var(--footer-color-light);
+            color: var(--text-color-light);
+        }
+
+        body.light-theme .overlay,
+        body.light-theme .popup-cart.open .overlay,
+        body.light-theme .popup.open .overlay,
+        body.light-theme .doubt-popup.open .overlay,
+        body.light-theme #customerNamePopup.open .overlay {
+            background-color: var(--popup-overlay-color-light);
+        }
+
+        body.light-theme .popup .popup-content,
+        body.light-theme .doubt-popup .doubt-popup-content,
+        body.light-theme .popup-cart .cart-items,
+        body.light-theme .popup-cart .cart-header,
+        body.light-theme .popup-cart .cart-footer,
+        body.light-theme #customerNamePopup .popup-content {
+            color: var(--popup-text-color-light);
+        }
+
+        body.light-theme #whatsapp-button {
+            background-color: var(--whatsapp-button-color-light);
+            color: white;
+        }
+        body.light-theme .product-card button {
+            background-color: var(--product-card-button-color-light);
+            color: var(--product-card-button-text-color-light);
+        }
+        body.light-theme .product-card .product-price {
+            color: var(--product-card-price-color-light);
+        }
+
+        /* ===== Tema Escuro ===== */
+        body.dark-theme {
+            background-color: var(--background-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        body.dark-theme header,
+        body.dark-theme #sidebar,
+        body.dark-theme .popup-cart,
+        body.dark-theme .popup,
+        body.dark-theme .doubt-popup,
+        body.dark-theme #customerNamePopup {
+            background-color: var(--header-color-dark);
+        }
+        body.dark-theme aside#sidebar {
+            background-color: var(--sidebar-color-dark);
+        }
+
+        body.dark-theme .product-card,
+        body.dark-theme .popup .popup-content,
+        body.dark-theme .doubt-popup .doubt-popup-content,
+        body.dark-theme .popup-cart .cart-items,
+        body.dark-theme .popup-cart .cart-header,
+        body.dark-theme .popup-cart .cart-footer,
+        body.dark-theme #customerNamePopup .popup-content {
+            background-color: var(--card-color-dark);
+            border-radius: 10px; /* Arredonda os cantos dos cards e popups no tema escuro */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.5); /* Contorno de sombra escuro */
+        }
+
+        body.dark-theme button,
+        body.dark-theme .whatsapp-button,
+        body.dark-theme .clear-cart-button,
+        body.dark-theme #customerNamePopup .popup-content button {
+            background-color: var(--button-color-dark);
+            color: var(--button-text-color-dark);
+            border-color: var(--button-border-dark);
+        }
+        body.dark-theme #customerNamePopup .popup-content button:last-child {
+            background-color: var(--button-cancel-dark);
+            border-color: var(--button-border-cancel-dark);
+        }
+
+        body.dark-theme footer {
+            background-color: var(--footer-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        body.dark-theme .overlay,
+        body.dark-theme .popup-cart.open .overlay,
+        body.dark-theme .popup.open .overlay,
+        body.dark-theme .doubt-popup.open .overlay,
+        body.dark-theme #customerNamePopup.open .overlay {
+            background-color: var(--popup-overlay-color-dark);
+        }
+
+        body.dark-theme .popup .popup-content,
+        body.dark-theme .doubt-popup .doubt-popup-content,
+        body.dark-theme .popup-cart .cart-items,
+        body.dark-theme .popup-cart .cart-header,
+        body.dark-theme .popup-cart .cart-footer,
+        body.dark-theme #customerNamePopup .popup-content {
+            color: var(--popup-text-color-dark);
+        }
+        body.dark-theme #whatsapp-button {
+            background-color: var(--whatsapp-button-color-dark);
+            color: white;
+        }
+        body.dark-theme .product-card button {
+            background-color: var(--product-card-button-color-dark);
+            color: var(--product-card-button-text-color-dark);
+        }
+        body.dark-theme .product-card .product-price {
+            color: var(--product-card-price-color-dark);
+        }
+
+        /* ===== Layout Geral ===== */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        #logo {
+            width: 100px;
+            height: 50px;
+            background-image: url('logo-talismaga.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #theme-toggle,
+        #sidebar-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        #search-bar-container {
+            padding: 10px 20px;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        #search-bar {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #whatsapp-button {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        #whatsapp-button img {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+        #cart-button {
+            position: fixed;
+            right: 20px;
+            bottom: 80px;
+            background: none;
+            border: none;
+            font-size: 2em;
+            cursor: pointer;
+            padding: 10px;
+            background-color: var(--button-color-light);
+            color: var(--button-text-color-light);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        body.dark-theme #cart-button {
+            background-color: var(--button-color-dark);
+            color: var(--button-text-color-dark);
+        }
+
+        #cart-button:hover {
+            background-color: var(--accent-color-light);
+            color: white;
+            box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.4);
+        }
+
+        aside#sidebar {
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            padding-top: 60px;
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
+            z-index: 999;
+        }
+
+        aside#sidebar.open {
+            transform: translateX(250px);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #sidebar ul li a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: inherit;
+            border-bottom: 1px solid #ddd;
+        }
+        #sidebar ul li a:hover {
+            background-color: #d0d0d0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 20px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-bottom: 1px solid #eee;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: var(--button-color-light2);
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background-color: var(--accent-color-light);
+            color: white;
+        }
+
+        main#product-grid {
+            display: flex; /* Mantém como flex container */
+            flex-direction: column;
+            gap: 30px;
+            padding: 80px 20px 100px 20px;
+            width: 100%;
+            max-width: 1200px; /* Define uma largura máxima para a grade em telas maiores */
+            margin: 0 auto; /* Centraliza a grade na tela */
+            flex: 1;
+        }
+
+        .category-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Cards menores */
+            padding: 20px;
+            gap: 20px;
+            flex-grow: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .category-title {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 1em;
+            font-size: 1.5em;
+        }
+
+        .product-card {
+            border-radius: 10px; /* Arredonda os cantos dos cards */
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra padrão mais destacada */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+  min-height: 3em; /* Altura fixa para título */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+            text-align: center;
+            font-size: 1em;
+            margin-top: 1.0em;
+}
+
+
+
+
+        .product-card p.product-price {
+            padding: 0 10px 10px 10px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 0.5em;
+        }
+
+        .product-card button {
+            background-color: var(--product-card-button-color-light);
+            color: var(--product-card-button-text-color-light);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px; /* Arredondamento padrão dos botões dos cards */
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease;
+            font-size: 1em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra padrão dos botões dos cards */
+        }
+
+        .product-card button:hover {
+            background-color: var(--accent-color-light);
+            color: white;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3); /* Sombra hover dos botões dos cards */
+        }
+
+        /* ===== Popups ===== */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+        }
+
+        .popup,
+        .doubt-popup,
+        #customerNamePopup,
+        .popup-cart {
+            display: none;
+            position: fixed;
+            top: 50%; /* Centraliza verticalmente */
+            left: 50%; /* Centraliza horizontalmente */
+            transform: translate(-50%, -50%); /* Centraliza o popup */
+            padding: 20px;
+            border-radius: 10px; /* Arredonda os cantos dos popups */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra padrão mais destacada */
+            z-index: 1001;
+            max-height: 90vh;
+
+            overflow-y: auto;
+            width: 80%;
+            max-width: 500px;
+flex-direction: column; /* Adicionar aqui */
+
+        }
+
+
+
+
+        .doubt-popup {
+            width: 90%;
+            max-width: 600px;
+        }
+        #customerNamePopup {
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .popup .close,
+        .doubt-popup .close,
+        #customerNamePopup .close,
+        .popup-cart .close-cart {
+            position: absolute;
+            top: 10px;
+            right: 5px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #555;
+        }
+
+.popup .close {
+    position: absolute;
+    top: -30px; /* Move o botão para cima do popup */
+    right: -30px; /* Move o botão para a direita do popup */
+    font-size: 2em;
+    cursor: pointer;
+    color: #fff; /* Cor branca para melhor visibilidade */
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro para destacar */
+    border-radius: 50%; /* Botão circular */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1002; /* Garante que o botão fique acima do popup */
+}
+        .popup .close:hover,
+        .doubt-popup .close:hover,
+        #customerNamePopup .close:hover,
+        .popup-cart .close-cart:hover {
+            color: #333;
+        }
+
+        .popup-content,
+        .doubt-popup .doubt-popup-content,
+        .popup-cart .cart-items,
+        .popup-cart .cart-header,
+        .popup-cart .cart-footer,
+        #customerNamePopup .popup-content {
+            padding: 15px;
+        }
+        .popup-content h2 {
+            margin-bottom: 15px;
+        }
+        .popup-content p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .doubt-popup h3 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .doubt-popup textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            min-height: 100px;
+            resize: vertical;
+        }
+        .doubt-popup button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: var(--confirm-button-color-light);
+            color: white;
+        }
+        .doubt-popup button:hover {
+            background-color: var(--confirm-button-color-dark);
+        }
+
+        .image-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-images img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .carousel-arrow:hover {
+            opacity: 1;
+        }
+
+        .carousel-arrow.prev {
+            left: 0;
+            border-radius: 0 50% 50% 0;
+        }
+
+        .carousel-arrow.next {
+            right: 0;
+            border-radius: 50% 0 0 50%;
+        }
+
+        .popup-cart {
+            /* Centraliza o popup do carrinho */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            right: auto;
+            bottom: auto;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1002;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .popup-cart.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .popup-cart .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .popup-cart .cart-header h3 {
+            margin: 0;
+        }
+
+        .popup-cart .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.0em;
+            cursor: pointer;
+        }
+
+        .popup-cart .cart-items {
+  overflow-y: auto; /* Rolagem apenas nos itens */
+  padding-right: 10px;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: transparent transparent; /* Firefox */
+            max-height: 700px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .popup-cart .cart-items .empty-cart-message {
+            text-align: center;
+            font-style: italic;
+            color: #777;
+            padding: 20px 0;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ccc;
+            position: relative;
+            transition: all 0.3s ease;
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .cart-item.removing-item {
+            opacity: 0;
+            transform: translateX(-100%);
+            max-height: 0;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item img {
+            width: 70px;
+            height: 70px;
+            margin-right: 15px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .cart-item h4 {
+  font-size: 0.8em; /* Texto menor */
+  margin-right: 30px; /* Espaço para lixeira */
+}
+
+        .cart-item .item-price {
+            margin: 0;
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .cart-item .quantity-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .cart-item .quantity-button {
+            background: none;
+            border: 1px solid #aaa;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 0 5px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            line-height: 1;
+            height: auto;
+        }
+        .cart-item .quantity-button:hover {
+            background-color: #f0f0f0;
+        }
+        .cart-item .item-quantity-input {
+            width: 40px;
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+        .cart-item .item-quantity-input::-webkit-outer-spin-button,
+        .cart-item .item-quantity-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .cart-item .remove-item {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            background: none;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 1.2em;
+            opacity: 0.7;
+            transition: color 0.3s ease, opacity 0.3s ease;
+        }
+        .cart-item .remove-item:hover {
+            color: var(--cancel-button-color-light);
+            opacity: 1;
+        }
+        .cart-item .remove-item i {
+            pointer-events: none;
+        }
+
+        .popup-cart .cart-footer {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .popup-cart .cart-footer .cart-total {
+            text-align: right;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .popup-cart .cart-footer .cart-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .popup-cart .cart-footer .cart-buttons button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: center;
+            white-space: nowrap;
+            /* Estilo do botão do popup do carrinho igual ao botão do card */
+            background-color: var(--product-card-button-color-light);
+            color: var(--product-card-button-text-color-light);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .popup-cart .cart-footer .cart-buttons button:hover {
+            background-color: var(--accent-color-light);
+            color: white;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        }
+        .popup-cart .cart-footer .cart-buttons .whatsapp-button {
+            background-color: var(--whatsapp-button-color-light);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .popup-cart .cart-footer .cart-buttons .whatsapp-button i {
+            font-size: 1.2em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 1.5em;
+            color: inherit;
+            text-decoration: none;
+        }
+        .popup-open {
+            overflow: hidden;
+        }
+
+        #product-added-message {
+            text-align: center;
+        }
+
+
+
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 15px;
+            }
+
+#whatsapp-button {
+    bottom: 90px; /* Elevado acima do footer */
+    z-index: 1001;
+  }
+
+            #logo {
+                width: 80px;
+                height: 40px;
+            }
+            #theme-toggle,
+            #sidebar-toggle {
+                font-size: 1.2em;
+                padding: 8px;
+            }
+            #search-bar-container {
+                padding: 10px 15px;
+            }
+            nav {
+                gap: 10px;
+                padding: 10px 10px;
+            }
+            nav a {
+                padding: 6px 10px;
+                font-size: 0.9em;
+                  color: var(--product-card-button-text-color-dark) !important;
+            }
+            main#product-grid {
+                padding: 10px;
+                gap: 100px;
+                grid-template-columns: repeat(2, minmax(150px, 1fr)); /* 2 colunas em mobile, cards menores ainda */
+            }
+            .category-products {
+                padding: 10px;
+                gap: 16px;
+                grid-template-columns: repeat(2, minmax(150px, 1fr)); /* 2 colunas em mobile, cards menores ainda */
+            }
+            .product-card {
+                border-radius: 8px;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Sombra um pouco menor em mobile */
+            }
+            .product-card h3 {
+                font-size: 0.9em;
+            }
+            .product-card p.product-price {
+                font-size: 1em;
+            }
+            .product-card button {
+                padding: 8px 10px;
+                font-size: 0.8em;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.2); /* Sombra menor nos botões em mobile */
+            }
+            .product-card button:hover {
+                box-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Sombra menor nos botões hover em mobile */
+            }
+            .popup,
+            .doubt-popup,
+            #customerNamePopup,
+            .popup-cart {
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Sombra um pouco menor em mobile */
+            }
+            .popup .close,
+            .doubt-popup .close,
+            #customerNamePopup .close,
+            .popup-cart .close-cart {
+                font-size: 1.9em;
+                top: 8px;
+                right: 8px;
+            }
+            .popup-content,
+            .doubt-popup .doubt-popup-content,
+            .popup-cart .cart-items,
+            .popup-cart .cart-header,
+            .popup-cart .cart-footer,
+            #customerNamePopup .popup-content {
+                padding: 10px;
+            }
+            .popup-content h2 {
+                font-size: 1.3em;
+                margin-bottom: 10px;
+            }
+            .doubt-popup h3 {
+                font-size: 1.2em;
+                margin-bottom: 10px;
+            }
+            .doubt-popup textarea,
+            #customerNamePopup input,
+            #customerNamePopup textarea {
+                padding: 8px;
+                margin-bottom: 10px;
+                font-size: 0.9em;
+            }
+            .doubt-popup button,
+            #customerNamePopup .popup-content button {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+
+/* Estilo para os botões "Confirmar e Enviar" e "Cancelar" */
+#customerNamePopup .popup-content button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+    font-size: 1em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 300px;
+    margin: 10px 0;
+}
+
+#customerNamePopup .popup-content button:first-child {
+    background-color: var(--confirm-button-color-dark);
+    color: white;
+}
+
+#customerNamePopup .popup-content button:last-child {
+    background-color: var(--cancel-button-color-dark);
+    color: white;
+}
+
+#customerNamePopup .popup-content button:hover {
+    background-color: var(--accent-color-dark);
+    color: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+/* Ajustes para o tema escuro */
+body.dark-theme #customerNamePopup .popup-content button:first-child {
+    background-color: var(--confirm-button-color-dark);
+}
+
+body.dark-theme #customerNamePopup .popup-content button:last-child {
+    background-color: var(--cancel-button-color-dark);
+}
+
+body.dark-theme #customerNamePopup .popup-content button:hover {
+    background-color: var(--accent-color-dark);
+}
+            .popup-cart {
+                right: 50%; /* Centraliza popup cart no mobile */
+                left: 50%;
+                transform: translate(-50%, -50%);
+                bottom: auto; /* Garante que o bottom não interfira no centralizar */
+                top: 50%; /* Garante que o top não interfira no centralizar */
+            }
+            footer {
+                padding: 15px;
+                margin-top: 15px;
+                font-size: 0.9em;
+            }
+            .social-icons a {
+                margin: 0 8px;
+                font-size: 1.3em;
+            }
+            #whatsapp-button {
+                right: 15px;
+                bottom: 15px;
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+            #whatsapp-button img {
+                width: 20px;
+                height: 20px;
+                margin-right: 6px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            header {
+                padding: 8px 10px;
+            }
+            #logo {
+                width: 70px;
+                height: 35px;
+            }
+            #theme-toggle,
+            #sidebar-toggle {
+                font-size: 1em;
+                padding: 6px;
+            }
+            #search-bar-container {
+                padding: 8px 10px;
+            }
+            nav {
+                gap: 5px;
+                padding: 8px 5px;
+            }
+            nav a {
+                padding: 5px 8px;
+                font-size: 0.8em;
+            }
+            main#product-grid {
+                padding: 5px;
+                gap: 5px;
+                grid-template-columns: repeat(2, minmax(100px, 1fr)); /* Cards ainda menores em telas menores */
+            }
+            .category-products {
+                padding: 5px;
+                gap: 5px;
+                grid-template-columns: repeat(2, minmax(100px, 1fr)); /* Cards ainda menores em telas menores */
+            }
+            .product-card {
+                border-radius: 5px;
+            }
+            .product-card h3 {
+                font-size: 0.8em;
+            }
+            .product-card p.product-price {
+                font-size: 0.9em;
+            }
+            .product-card button {
+                padding: 6px 8px;
+                font-size: 0.7em;
+            }
+            .popup,
+            .doubt-popup,
+            #customerNamePopup,
+            .popup-cart {
+                padding: 10px;
+                border-radius: 5px;
+                width: 95%;
+                max-width: none;
+            }
+            .popup .close,
+            .doubt-popup .close,
+            #customerNamePopup .close,
+            .popup-cart .close-cart {
+                font-size: 1.1em;
+                top: 5px;
+                right: 5px;
+            }
+            .popup-content,
+            .doubt-popup .doubt-popup-content,
+            .popup-cart .cart-items,
+            .popup-cart .cart-header,
+            .popup-cart .cart-footer,
+            #customerNamePopup .popup-content {
+                padding: 8px;
+            }
+            .popup-content h2 {
+                font-size: 1.2em;
+                margin-bottom: 8px;
+            }
+            .doubt-popup h3 {
+                font-size: 1.1em;
+                margin-bottom: 8px;
+            }
+            .doubt-popup textarea,
+            #customerNamePopup input,
+            #customerNamePopup textarea {
+                padding: 6px;
+                margin-bottom: 8px;
+                font-size: 0.8em;
+            }
+            .doubt-popup button,
+            #customerNamePopup .popup-content button {
+                padding: 6px 10px;
+                font-size: 0.8em;
+            }
+            .popup-cart {
+                right: 50%; /* Centraliza popup cart no mobile em telas menores */
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            footer {
+                padding: 10px;
+                margin-top: 10px;
+                font-size: 0.8em;
+            }
+            .social-icons a {
+                margin: 0 6px;
+                font-size: 1.2em;
+            }
+            #whatsapp-button {
+                right: 10px;
+                bottom: 10px;
+                padding: 6px 10px;
+                font-size: 0.8em;
+            }
+            #whatsapp-button img {
+                width: 18px;
+                height: 18px;
+                margin-right: 5px;
+            }
+        }
+
+
+        .product-card button {
+            background-color: var(--product-card-button-color-light);
+            color: var(--product-card-button-text-color-light);
+            border: none;
+            padding: 18px 20px;
+            border-radius: 1px; /* Arredondamento padrão dos botões dos cards */
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease;
+            font-size: 0.7em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra padrão dos botões dos cards */
+        }
+
+        .product-card button:hover {
+            background-color: var(--accent-color-light);
+            color: white;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3); /* Sombra hover dos botões dos cards */
+        }
+        
+        #theme-toggle {
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        #theme-toggle::before {
+            content: '☀️';
+            position: absolute;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        body.dark-theme #theme-toggle::before {
+            content: '🌙';
+            opacity: 0;
+            transform: translateY(100%);
+        }
+
+        #theme-toggle::after {
+            content: '🌙';
+            position: absolute;
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        body.dark-theme #theme-toggle::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .popup-cart .cart-items::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
+}
+
+.popup-cart .cart-items::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.popup-cart .cart-buttons .clear-cart-button {
+  background-color: var(--cancel-button-color-light) !important;
+  color: white !important;
+}
+
+.popup-cart .cart-buttons .whatsapp-button {
+  background-color: var(--confirm-button-color-light) !important;
+}
+.item-quantity-input {
+  width: 50px !important; /* Campo mais largo */
+}
+body.dark-theme .cart-total {
+  opacity: 0.9;
+}
+
+body.dark-theme .popup-cart .cart-buttons .clear-cart-button {
+  background-color: var(--cancel-button-color-dark) !important;
+}
+
+body.dark-theme .popup-cart .cart-buttons .whatsapp-button {
+  background-color: var(--confirm-button-color-dark) !important;
+}
+/* === Ajustes no Popup === */
+
+
+.popup .popup-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 80px; /* Espaço para o botão */
+}
+
+.popup .image-carousel {
+  flex-shrink: 0;
+}
+
+.popup .popup-content h2 {
+  margin: 1px 0 1px;
+  font-size: 1.2em;
+}
+
+.popup .popup-content p {
+  overflow-y: auto; /* Rolagem apenas na descrição */
+  flex-grow: 1;
+  padding-right: 5px;
+  margin-bottom: 15px;
+}
+
+/* Botão igual aos cards */
+.popup .add-to-cart-popup {
+  background-color: var(--product-card-button-color-light) !important;
+  color: var(--product-card-button-text-color-light) !important;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 
+    background-color var(--transition-duration),
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  font-size: 1em;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 30px);
+  max-width: 300px;
+  z-index: 1;
+}
+
+.popup .add-to-cart-popup:hover {
+  background-color: var(--accent-color-light) !important;
+  color: white !important;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  transform: translateX(-50%) scale(1.02);
+}
+
+/* Tema Escuro */
+body.dark-theme .popup .add-to-cart-popup {
+  background-color: var(--product-card-button-color-dark) !important;
+  color: var(--product-card-button-text-color-dark) !important;
+}
+
+body.dark-theme .popup .add-to-cart-popup:hover {
+  background-color: var(--accent-color-dark) !important;
+  color: var(--text-color-dark) !important;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .popup {
+    height: auto; /* Altura maior em mobile */
+    width: 100%;
+  }
+  
+  .popup .add-to-cart-popup {
+    padding: 12px 10px;
+    font-size: 0.7em;
+    width: calc(90% - 20px);
+  }
+}
+    </style>
+</head>
+<body class="light-theme">
+    <header>
+        <button id="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        <div id="logo"></div>
+        <button id="theme-toggle" onclick="toggleTheme()"></button>
+    </header>
+    <nav>
+        <a href="#" data-category="Cama" onclick="filterCategory('Cama'); return false;">Cama</a>
+        <a href="#" data-category="Sala" onclick="filterCategory('Sala'); return false;">Sala</a>
+        <a href="#" data-category="Banho" onclick="filterCategory('Banho'); return false;">Banho</a>
+        <a href="#" data-category="Cozinha" onclick="filterCategory('Cozinha'); return false;">Cozinha</a>
+        <a href="#" data-category="Todos" class="active" onclick="filterCategory('Todos'); return false;">Todos os Produtos</a>
+    </nav>
+    <a href="#" id="whatsapp-button" onclick="openDoubtPopup(); return false;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"> Fale conosco
+    </a>
+    <div id="search-bar-container">
+        <input type="text" placeholder="Buscar produtos..." id="search-bar">
+    </div>
+    <aside id="sidebar">
+        <ul>
+            <li>
+                <a href="#">Cozinha</a>
+            </li>
+            <li>
+                <a href="#">Quarto</a>
+            </li>
+            <li>
+                <a href="#">Sala</a>
+            </li>
+        </ul>
+    </aside>
+    <main id="product-grid" class="category-products">
+    </main>
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+    <div class="popup" id="popup">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <div class="popup-content" id="popup-content"></div>
+    </div>
+     <div class="doubt-popup" id="doubtPopup">
+        <span class="close" onclick="closeDoubtPopup()">&times;</span>
+        <h3>Digite sua dúvida</h3>
+        <textarea id="doubtText" placeholder="Escreva aqui sua pergunta"></textarea>
+        <button onclick="sendToWhatsappDoubt()">
+                    <i class="fab fa-whatsapp"></i> Enviar
+    </div>
+    <footer>
+        <p>&copy; 2025 Daniel Laranjo</p>
+        <div class="social-icons">
+            <a href="#">X</a>
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+        </div>
+    </footer>
+    <div class="popup-cart" id="popup-cart">
+    <div class="cart-header">
+                <h3>PEDIDOS</h3>
+                <button class="close-cart" onclick="toggleCart()">x</button>
+            </div>
+        <div class="cart-items" id="cart-items"></div>
+
+        <div class="cart-footer">
+        <div class="cart-total">
+                    <span id="cart-total-display"></span>
+        </div>
+        <div class="cart-buttons">
+                <button class="whatsapp-button" onclick="sendToWhatsappCart()">
+                    <i class="fab fa-whatsapp"></i> Enviar Pedido
+                </button>
+        <button class="clear-cart-button" onclick="clearCart()">Limpar Carrinho</button>
+        </div>
+    </div>
+    </div>
+
+    <div class="popup" id="customerNamePopup">
+    <span class="close" onclick="closeCustomerNamePopup()">&times;</span>
+    <div class="popup-content" style="display: flex; flex-direction: column; align-items: center;">
+        <h2>Nome do Cliente</h2>
+        <input type="text" id="customerNameInput" placeholder="Olá cliente, digite seu nome" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;">
+        <textarea id="customerObservation" placeholder="Alguma observação para o pedido?" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; min-height: 60px; resize: vertical;"></textarea>
+        <div style="display: flex; flex-direction: row; gap: 10px; width: 100%; justify-content: center;">
+            <button onclick="confirmSendToWhatsapp()">Confirmar e Enviar</button>
+            <button onclick="closeCustomerNamePopup()">Cancelar</button>
+        </div>
+    </div>
+</div>
+    <button id="cart-button" onclick="toggleCart()">🛍️</button>
+    <div id="product-added-message" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.7); color: white; padding: 20px; border-radius: 8px; z-index: 1001;"> Adicionado ao seu pedido! </div>
+
+    <script>
+         function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            updateButtonBoxesTheme();
+            updateCategoryButtonsTheme(); // Adicionado para atualizar os botões de categoria
+        }
+        function updateCategoryButtonsTheme() {
+            const isDarkTheme = document.body.classList.contains('dark-theme');
+            const categoryButtons = document.querySelectorAll('nav a');
+            categoryButtons.forEach(button => {
+                if (isDarkTheme) {
+                    button.style.backgroundColor = 'var(--button-text-color-light)'; // Cor tema escuro
+                    button.style.color = 'var(--button-text-color-light)';
+                } else {
+                    button.style.backgroundColor = 'var(--button-color-light2)'; // Cor tema claro
+                    button.style.color = 'var(--button-text-color-light)';
+                }
+            });
+        }
+
+
+
+
+        function filterProducts(query) {
+    const filteredProducts = products.filter(product => product.name.toLowerCase().includes(query.toLowerCase()));
+    renderCategorizedProducts(filteredProducts); // Usar renderCategorizedProducts para manter categorias
+}
+
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+
+        const grid = document.getElementById('product-grid');
+        let currentCarouselIndex = 0; // Índice para controlar o carrossel de imagens
+        let currentPopupProductId = null; // Para rastrear o produto do popup atual
+
+      function renderProducts(productsToRender) {
+    grid.innerHTML = '';
+    productsToRender.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <img src="${product.images[0]}" alt="${product.name}" onclick="openPopup(${product.id})" loading="lazy">
+            <h3>${product.name}</h3>
+            <p class="product-price">${formatPrice(product.price)}</p>
+            <button class="add-to-cart-popup" onclick="addToCart(${product.id})">Quero Este Produto</button>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+        function renderCategorizedProducts(productsToRender) {
+            grid.innerHTML = ''; // Limpa o grid antes de renderizar
+
+            const categories = [...new Set(productsToRender.map(product => product.category))]; // Obtém categorias únicas
+
+            categories.forEach(category => {
+                const categorySection = document.createElement('div');
+                categorySection.className = 'category-section';
+
+                const categoryTitle = document.createElement('h2');
+                categoryTitle.className = 'category-title';
+                categoryTitle.textContent = category;
+                categorySection.appendChild(categoryTitle);
+
+                const categoryProductsGrid = document.createElement('div');
+                categoryProductsGrid.className = 'category-products';
+
+                const productsInCategory = productsToRender.filter(product => product.category === category);
+                productsInCategory.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                                                            <img src="${product.images[0]}" alt="${product.name}" onclick="openPopup(${product.id})" loading="lazy">
+                                                            <h3>${product.name}</h3>
+                                                            <p class="product-price">${formatPrice(product.price)}</p>  <button class="add-to-cart-popup" onclick="addToCart(${product.id})">Quero Este Produto</button>
+                        `;
+                    categoryProductsGrid.appendChild(card);
+                });
+                categorySection.appendChild(categoryProductsGrid);
+                grid.appendChild(categorySection); // Adiciona a seção de categoria ao grid principal
+            });
+        }
+        function filterCategory(category) {
+    const categoryLinks = document.querySelectorAll('nav a');
+    categoryLinks.forEach(link => link.classList.remove('active')); // Remove 'active' de todos
+    document.querySelector(`nav a[data-category="${category}"]`).classList.add('active'); // Adiciona 'active' ao clicado
+
+    let filteredProducts;
+    if (category === 'Todos') {
+        filteredProducts = products;
+    } else {
+        filteredProducts = products.filter(product => product.category === category);
+    }
+    renderCategorizedProducts(filteredProducts); // Renderiza produtos filtrados E categorizados
+}
+
+
+        document.getElementById('search-bar').addEventListener('input', (e) => {
+            filterProducts(e.target.value);
+        });
+        filterCategory('Todos'); // Renderização inicial de todos os produtos categorizados
+
+
+        function openPopup(productId) {
+    currentPopupProductId = productId;
+    const product = products.find(p => p.id === productId);
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('popup').style.display = 'block';
+    document.body.classList.add('popup-open');
+
+    // Carrossel de Imagens (mantém como está) ...
+    const carouselHTML = `
+        <div class="image-carousel">
+            <div class="carousel-images" id="carouselImages-${productId}">
+                ${product.images.map(image => `<img src="${image}" alt="${product.name}">`).join('')}
+            </div>
+            ${product.images.length > 1 ? `<button class="carousel-arrow prev" onclick="prevImage(${productId})">&#10094;</button>
+            <button class="carousel-arrow next" onclick="nextImage(${productId})">&#10095;</button>` : ''}
+        </div>
+    `;
+
+    document.getElementById('popup-content').innerHTML = `
+        ${carouselHTML}
+        <h2>${product.name}</h2>
+        <p>${product.topDescription}</p>  <button class="add-to-cart-popup" onclick="addToCart(${product.id})">Quero Este Produto</button>
+    `;
+    currentCarouselIndex = 0;
+    updateCarousel(productId);
+}
+
+        function prevImage(productId) {
+            currentCarouselIndex = Math.max(0, currentCarouselIndex - 1);
+            updateCarousel(productId);
+        }
+
+        function nextImage(productId) {
+            const product = products.find(p => p.id === productId);
+            currentCarouselIndex = Math.min(product.images.length - 1, currentCarouselIndex + 1);
+            updateCarousel(productId);
+        }
+
+        function updateCarousel(productId) {
+            const carouselImagesElement = document.getElementById(`carouselImages-${productId}`);
+            if (carouselImagesElement) {
+                carouselImagesElement.style.transform = `translateX(-${currentCarouselIndex * 100}%)`;
+            }
+        }
+
+
+        function closePopup() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+            document.body.classList.remove('popup-open');
+        }
+
+       function addToCart(productId) {
+    console.log("Função addToCart foi chamada para o produto ID:", productId);
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const product = products.find(p => p.id === productId);
+    const cartItem = cart.find(item => item.id === productId);
+
+    if (cartItem) {
+        cartItem.quantity++;
+    } else {
+        cart.push({
+            ...product,
+            quantity: 1
+        });
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+    // Show the message
+    const messageDiv = document.getElementById('product-added-message');
+    messageDiv.style.display = 'block';
+    // Hide the message after a delay (e.g., 2 seconds)
+    setTimeout(() => {
+        messageDiv.style.display = 'none';
+    }, 2000); // 2000 milliseconds = 2 seconds
+}
+
+
+        function renderCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsContainer = document.getElementById('cart-items');
+    cartItemsContainer.innerHTML = '';
+
+    let totalCartValue = 0; // Variável para armazenar o total do carrinho
+
+    if (cart.length === 0) {
+        const emptyCartMessage = document.createElement('p');
+        emptyCartMessage.textContent = 'Seu carrinho está vazio.';
+        emptyCartMessage.classList.add('empty-cart-message');
+        cartItemsContainer.appendChild(emptyCartMessage);
+    } else {
+        const observationArea = document.createElement('div');
+        observationArea.innerHTML = `
+
+        `;
+        // REMOVIDO A CAIXA DE OBSERVAÇÃO DO CARRINHO! - **CAIXA DE OBSERVAÇÃO REMOVIDA**
+        // cartItemsContainer.appendChild(observationArea);
+
+        cart.forEach(item => {
+            const itemSubtotal = item.price * item.quantity; // Calcula o subtotal do item
+            totalCartValue += itemSubtotal; // Adiciona ao total geral
+
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('cart-item');
+            itemElement.innerHTML = `
+                <img src="${item.images[0]}" alt="${item.name}">
+                <div>
+                    <h4>${item.name}</h4>
+                    <div class="quantity-controls">
+                        <button class="quantity-button"
+                            onclick="decreaseQuantity(${item.id})"
+                            onmousedown="startDecreaseQuantity(${item.id})"
+                            onmouseup="stopDecreaseQuantity()"
+                            onmouseleave="stopDecreaseQuantity()">
+                            -
+                        </button>
+                        <input type="number" class="item-quantity-input" value="${item.quantity}" min="1"
+                            onchange="updateQuantityInput(this, ${item.id})">
+                        <button class="quantity-button"
+                            onclick="increaseQuantity(${item.id})"
+                            onmousedown="startIncreaseQuantity(${item.id})"
+                            onmouseup="stopIncreaseQuantity()"
+                            onmouseleave="stopDecreaseQuantity()">
+                            +
+                        </button>
+                    </div>
+                    <p class="item-price">Subtotal: ${formatPrice(itemSubtotal)}</p>
+                </div>
+                <button class="remove-item" onclick="removeFromCart(${item.id})" title="Remover item">
+                    <i class="fas fa-trash-alt"></i> <span style="font-size: 1px; opacity: 0;">Remover</span>
+                </button>
+            `;
+            cartItemsContainer.appendChild(itemElement);
+        });
+    }
+
+    function updateSendButtonLink(totalValue) {
+        const sendButton = document.querySelector('.popup-cart .cart-footer button:last-child'); // Seleciona o botão "Enviar no WhatsApp"
+        sendButton.textContent = 'Limpar tudo'; // Remove a parte do total
+    }
+
+    const cartFooter = document.querySelector('.popup-cart .cart-footer');
+    let totalDisplay = cartFooter.querySelector('#cart-total-display');
+    if (!totalDisplay) {
+        totalDisplay = document.createElement('div');
+        totalDisplay.id = 'cart-total-display';
+        cartFooter.insertBefore(totalDisplay, cartFooter.firstChild); // Insere antes dos botões
+    }
+    totalDisplay.innerHTML = `Total: ${formatPrice(totalCartValue)}`; // Atualiza o valor total
+
+    updateSendButtonLink(totalCartValue); // Atualiza o link do botão "Enviar no WhatsApp" com o total
+}
+
+        function updateQuantity(productId, quantity) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItem = cart.find(item => item.id === productId);
+    if (cartItem) {
+        cartItem.quantity = parseInt(quantity);
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+}
+
+        function removeFromCart(productId) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsContainer = document.getElementById('cart-items');
+    const itemElementToRemove = cartItemsContainer.querySelector(`.cart-item:has(button[onclick*='removeFromCart(${productId})'])`);
+    if (itemElementToRemove) {
+        itemElementToRemove.classList.add('removing-item');
+        setTimeout(() => {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }, 300);
+    } else {
+        cart = cart.filter(item => item.id !== productId);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+    }
+}
+
+        function clearCart() {
+    localStorage.removeItem('cart');
+    renderCart();
+}
+
+       function openDoubtPopup() {
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('doubtPopup').style.display = 'block';
+}
+
+        function closeDoubtPopup() {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('doubtPopup').style.display = 'none';
+}
+
+        function sendToWhatsappDoubt() { // Função renomeada para diferenciar
+    const doubtText = document.getElementById('doubtText').value;
+    let whatsappMessage = "*Dúvida do Cliente:*\n" + (doubtText ? doubtText : "Sem dúvida digitada") + "\n\n";
+
+    // Envia direto para o WhatsApp após confirmar a dúvida
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    const whatsappNumber = '+5579991996384';
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+
+    closeDoubtPopup(); // Fecha o popup de dúvidas após enviar
+}
+
+        function sendToWhatsappCart() { // Nova função para enviar o carrinho pelo botão no carrinho
+    openCustomerNamePopup(""); // Abre o popup de nome SEM mensagem inicial, pois já está enviando o carrinho
+    toggleCart(); // Fecha o carrinho
+}
+
+
+function openCustomerNamePopup(initialMessage) {
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('customerNamePopup').style.display = 'block';
+    document.getElementById('customerNameInput').value = ''; // Limpa o campo de nome a cada vez que abre
+    document.getElementById('customerObservation').value = ''; // Limpa o campo de observação também
+    customerInitialMessage = initialMessage; // Armazena a mensagem inicial
+}
+
+
+let customerInitialMessage = ""; // Variável global para armazenar a mensagem inicial
+
+function confirmSendToWhatsapp() {
+    const customerName = document.getElementById('customerNameInput').value;
+    if (customerName.trim() === '') {
+        alert('Por favor, insira o nome do cliente.');
+        return;
+    }
+
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cart.length === 0) {
+        alert('O carrinho está vazio. Adicione produtos antes de enviar.');
+        closeCustomerNamePopup();
+        return;
+    }
+
+    const observation = document.getElementById('customerObservation').value || 'Sem observação';
+    let productListText = '';
+    cart.forEach(item => {
+        productListText += `⦿ ${item.quantity} ${item.name}\n\n`;
+    });
+
+    const totalCartValue = cart.reduce((total, item) => total + (item.price * item.quantity), 0); // Recalcula o total
+
+    // Monta a mensagem completa, incluindo a mensagem inicial (dúvida) e os dados do pedido
+    let whatsappMessage = customerInitialMessage + `✤ RESUMO DO PEDIDO ✤\n\n*PRODUTOS*\n\n${productListText}\n*CLIENTE:*\n${customerName}\n\n*OBSERVAÇÃO:*\n${observation}\n\n*＄TOTAL*: ${formatPrice(totalCartValue)}`;
+
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    const whatsappNumber = '+5579991996384';
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+
+    closeCustomerNamePopup();
+}
+
+
+function closeCustomerNamePopup() {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('customerNamePopup').style.display = 'none';
+}
+function formatPrice(price) {
+    return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+        function toggleCart() {
+    document.getElementById('popup-cart').classList.toggle('open');
+}
+
+        function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+}
+
+        function renderProducts(productsToRender) {
+    grid.innerHTML = '';
+    productsToRender.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <img src="${product.images[0]}" alt="${product.name}" onclick="openPopup(${product.id})" loading="lazy">
+            <h3>${product.name}</h3>
+            <p class="product-price">${formatPrice(product.price)}</p>
+            <button class="add-to-cart-popup" onclick="addToCart(${product.id})">Quero Este Produto</button>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+        function toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+    const currentTheme = document.body.classList.contains('dark-theme') ? 'dark-theme' : 'light-theme';
+    document.getElementById('sidebar').classList.remove('dark-theme', 'light-theme');
+    document.getElementById('sidebar').classList.add(currentTheme);
+    updateButtonBoxesTheme(); // Garante que as bordas dos botões são atualizadas também ao trocar o tema
+}
+        renderCart();
+        let increaseInterval;
+        let decreaseInterval;
+        function startIncreaseQuantity(productId) {
+            increaseInterval = setInterval(() => {
+                increaseQuantity(productId);
+            }, 100);
+        }
+
+        function stopIncreaseQuantity() {
+            clearInterval(increaseInterval);
+        }
+
+        function startDecreaseQuantity(productId) {
+            decreaseInterval = setInterval(() => {
+                decreaseQuantity(productId);
+            }, 100);
+        }
+
+        function stopDecreaseQuantity() {
+            clearInterval(decreaseInterval);
+        }
+
+        function updateQuantityInput(inputElement, productId) {
+    let quantity = parseInt(inputElement.value);
+    if (isNaN(quantity) || quantity < 1) {
+        quantity = 1;
+        inputElement.value = quantity;
+    }
+    updateQuantity(productId, quantity);
+}
+
+        function increaseQuantity(productId) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItem = cart.find(item => item.id === productId);
+            if (cartItem) {
+                cartItem.quantity++;
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function decreaseQuantity(productId) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItem = cart.find(item => item.id === productId);
+            if (cartItem) {
+                if (cartItem.quantity > 1) {
+                    cartItem.quantity--;
+                } else {
+                    removeFromCart(productId);
+                    return;
+                }
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+}
+
+        // Chamada inicial para definir as bordas dos botões com base no tema inicial
+        updateButtonBoxesTheme();
+        updateCategoryButtonsTheme(); // Chamada inicial para tema dos botões de categoria
+
+async function loadProducts() {
+    try {
+        // Carrega os produtos do arquivo products.json
+        const response = await fetch('products.json');
+        const products = await response.json();
+
+        // Renderiza os produtos na página
+        renderProducts(products);
+    } catch (error) {
+        console.error('Erro ao carregar os produtos:', error);
+    }
+}
+
+// Chama a função para carregar os produtos ao carregar a página
+loadProducts();
+    </script>
+
+</body>
+</html>
